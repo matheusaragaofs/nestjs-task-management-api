@@ -1,13 +1,42 @@
+import {
+  IsDateString,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+
+export enum TaskStatusEnum {
+  TO_DO = 'TO_D0',
+  IN_PRORESS = 'IN_PROGRESS',
+  DONE = 'DONE',
+}
 export class TaskDto {
+  @IsUUID()
+  @IsOptional()
   id: string;
+
+  @IsString()
+  @MinLength(3)
+  @MaxLength(256)
   title: string;
+
+  @IsString()
+  @MinLength(5)
+  @MaxLength(512)
   description: String;
+
+  @IsEnum(TaskStatusEnum)
+  @IsOptional()
   status: string;
+
+  @IsDateString()
   expriationDate: Date;
 }
 
-
-export interface FindAllParameters  { 
+export interface FindAllParameters {
   title: string;
   status: string;
 }
